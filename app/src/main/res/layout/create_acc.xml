@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/createAcc_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -15,7 +15,7 @@
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/createAcc_Username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -26,10 +26,10 @@
         android:hint="Username" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/createAcc_Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText3"
+        android:layout_below="@+id/createAcc_Username"
         android:layout_centerHorizontal="true"
 
         android:ems="10"
@@ -37,10 +37,10 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/createAcc_ConfirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText4"
+        android:layout_below="@+id/createAcc_Password"
         android:layout_centerHorizontal="true"
 
         android:ems="10"
@@ -61,7 +61,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/createAcc_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
