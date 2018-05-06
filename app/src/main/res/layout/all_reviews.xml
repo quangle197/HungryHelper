@@ -23,8 +23,8 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_alignStart="@+id/textView10"
-        android:layout_below="@+id/textView10"
+        android:layout_alignStart="@+id/allReviews_Title"
+        android:layout_below="@+id/allReviews_Title"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="10dp">
 
@@ -46,7 +46,7 @@
         app:srcCompat="@drawable/close_button" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/allReviews_Post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/allReviews_Exit"
