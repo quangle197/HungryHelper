@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<String> chosePhoto = new ArrayList<>();
 
     public static TextView main;
-    static int i =0;
+    public static int i =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 if (i<GetNeabyPlacesData.names.size()){
                     main.setText(GetNeabyPlacesData.names.get(i));
-
                     new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+
                     i++;
                 }
             }
