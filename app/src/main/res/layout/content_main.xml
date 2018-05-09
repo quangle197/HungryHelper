@@ -29,8 +29,38 @@
             tools:layout_editor_absoluteY="0dp">
 
 
+            <TextView
+                android:id="@+id/main_restaurantDescriptionTxt"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_alignTop="@+id/profilePlaque"
+                android:layout_centerHorizontal="true"
+                android:text="McDonald's"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:visibility="visible"
+                tools:layout_editor_absoluteX="21dp"
+                tools:layout_editor_absoluteY="92dp" />
+
+            <ImageButton
+                android:id="@+id/main_profileBtn"
+                android:layout_width="match_parent"
+                android:layout_height="253dp"
+                android:layout_below="@+id/main_restaurantDescriptionTxt"
+                android:layout_centerHorizontal="true"
+                android:onClick="gotoProfile"
+                android:scaleType="fitXY"
+                android:visibility="visible"
+                app:srcCompat="@drawable/mcdonalds"
+                tools:layout_editor_absoluteX="20dp"
+                tools:layout_editor_absoluteY="114dp" />
+
+            <RelativeLayout
+
+
             <LinearLayout
                 android:id="@+id/main_restaurantPlaque"
+
                 android:layout_width="match_parent"
                 android:layout_height="410dp"
                 android:background="@android:drawable/alert_light_frame"
@@ -179,5 +209,65 @@
 
         </LinearLayout>
     </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/main_leftBtn"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="TODO"
+                android:scaleType="fitCenter"
+                android:visibility="visible"
+                app:srcCompat="@drawable/thumbsdown"
+                tools:layout_editor_absoluteX="63dp"
+                tools:layout_editor_absoluteY="457dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/main_donebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Done" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/main_rightBtn"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:visibility="visible"
+                app:srcCompat="@drawable/thumbsup"
+                tools:layout_editor_absoluteX="260dp"
+                tools:layout_editor_absoluteY="457dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -79,6 +79,7 @@ public class GetNeabyPlacesData extends AsyncTask<Object, String, String>{
 
             names.add(googlePlace.get("place_name"));
             photos.add(googlePlace.get("photos"));
+            address.add(googlePlace.get("vincinity"));
         }
     }
 }
