@@ -1,5 +1,6 @@
 package com.example.quangle.hungryhelper;
 
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -75,6 +76,7 @@ public class ProfileActivity  extends AppCompatActivity {
             //bmImage.setScaleType(LinearLayout.ScaleType.FIT_XY);
         }
     }
+
 
 
 
