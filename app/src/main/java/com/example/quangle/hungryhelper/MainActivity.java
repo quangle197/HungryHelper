@@ -1,8 +1,10 @@
 package com.example.quangle.hungryhelper;
 
 import android.content.Intent;
+import android.gesture.GestureOverlayView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,13 +30,26 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import com.google.android.gms.maps.GoogleMap;
 
-import java.io.InputStream;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Stack;
+
+import static com.example.quangle.hungryhelper.Restaurant.generateRestaurant;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ArrayList<Restaurant> queue = new ArrayList<>();
+    public static ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
+
+    private ArrayList<String> choseName = new ArrayList<>();
+    private ArrayList<String> choseAddress = new ArrayList<>();
+    private ArrayList<String> chosePhoto = new ArrayList<>();
 
     public static TextView main;
     static int i =0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +68,16 @@ public class MainActivity extends AppCompatActivity
         main = findViewById(R.id.main_restaurantDescriptionTxt);
         changeName();
 
+        int size = GetNeabyPlacesData.names.size();
+        int j = 0;
+        while(j < size)
+        {
+            listOfRestaurants.add(new Restaurant(GetNeabyPlacesData.names.get(j),GetNeabyPlacesData.address.get(j),GetNeabyPlacesData.photos.get(j)));
+            j++;
+        }
+
         ImageButton like =(ImageButton) findViewById(R.id.main_rightBtn);
+
 
         like.setOnClickListener(new View.OnClickListener() {
 
@@ -63,11 +88,94 @@ public class MainActivity extends AppCompatActivity
                         main.setText(GetNeabyPlacesData.names.get(i));
 
                         new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                        choseName.add(GetNeabyPlacesData.names.get(i));
+                        choseAddress.add(GetNeabyPlacesData.address.get(i));
+                        chosePhoto.add(GetNeabyPlacesData.photos.get(i));
                         i++;
                     }
         }});
+
+        ImageButton dislike = findViewById(R.id.main_leftBtn);
+        dislike.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                if (i<GetNeabyPlacesData.names.size()){
+                    main.setText(GetNeabyPlacesData.names.get(i));
+
+                    new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                    i++;
+                }
+
+            }
+            });
+
+        ImageButton profile = findViewById(R.id.main_profileBtn);
+        profile.setOnTouchListener(new GestureListener(MainActivity.this){
+            @Override
+            public void onSwipeRight()
+            {
+                if (i<GetNeabyPlacesData.names.size()){
+                    main.setText(GetNeabyPlacesData.names.get(i));
+
+                    new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                    i++;
+                }
+            }
+            public void onSwipeLeft()
+            {
+                if (i<GetNeabyPlacesData.names.size()){
+                    main.setText(GetNeabyPlacesData.names.get(i));
+
+                    new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                    i++;
+                }
+            }
+            @Override
+            public void onTap()
+            {
+                    gotoProfile(findViewById(R.id.main_profileBtn));
+            }
+        });
+
+        linearLayout.setOnTouchListener(new GestureListener(MainActivity.this)
+        {
+            @Override
+            public void onSwipeRight()
+            {
+                if (i<GetNeabyPlacesData.names.size()){
+                    main.setText(GetNeabyPlacesData.names.get(i));
+
+                    new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                    i++;
+                }
+            }
+            public void onSwipeLeft()
+            {
+                if (i<GetNeabyPlacesData.names.size()){
+                    main.setText(GetNeabyPlacesData.names.get(i));
+
+                    new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                    i++;
+                }
+            }
+        });
+        Button done = findViewById(R.id.main_donebutton);
+        done.setOnClickListener(new View.OnClickListener() {
+            int x = (int)(Math.random() * choseName.size());
+            @Override
+            public void onClick(View view) {
+
+                    main.setText(choseName.get(x));
+                    new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(chosePhoto.get(x)));
+            }
+        });
     }
 
+    public void gotoProfile(View v){
+        startActivity(new Intent(this, ProfileActivity.class));
+    }
 
     @Override
     public void onBackPressed() {
@@ -117,8 +225,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this,FavoriteActivity.class));
         } else if (id == R.id.nav_map) {
             startActivity(new Intent(this,MapActivity.class));
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -126,6 +232,7 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
     private GoogleMap mMap;
+
 
     public void changeName()
     {
@@ -144,7 +251,7 @@ public class MainActivity extends AppCompatActivity
 
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlaceUrl.append("location="+latitude+","+longitude);
-        googlePlaceUrl.append("&radius="+5000);
+        googlePlaceUrl.append("&radius="+1000);
         googlePlaceUrl.append("&type="+nearbyPlace);
         googlePlaceUrl.append("&keyword="+"restaurant");
         googlePlaceUrl.append("&key="+"AIzaSyB_2lXrSXS3PwKwk2LfeBz5v061sbVk_38");
@@ -189,6 +296,15 @@ public class MainActivity extends AppCompatActivity
             bmImage.setScaleType(ImageView.ScaleType.FIT_XY);
         }
     }
+     public void changeProfile()
+    {
+     if(!listOfRestaurants.isEmpty())
+     {
+         TextView temp = findViewById(R.id.main_restaurantDescriptionTxt);
+         main.setText(listOfRestaurants.get(0).getName());
 
+         new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(listOfRestaurants.get(0).getImage()));
+     }
+    }
 
 }

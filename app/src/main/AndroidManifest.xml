@@ -34,7 +34,7 @@
             android:label="Favorites"/>
         <activity android:name=".ForgotPasswordActivity"/>
         <activity android:name=".MapActivity"/>
-        <activity android:name=".MapActivity2"/>
+        <activity android:name=".ProfileActivity"/>
     </application>
 
 </manifest>

@@ -44,7 +44,7 @@
                 tools:layout_editor_absoluteX="21dp"
                 tools:layout_editor_absoluteY="92dp" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/main_profileBtn"
                 android:layout_width="match_parent"
                 android:layout_height="253dp"
@@ -155,6 +155,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
+            <Button
+                android:id="@+id/main_donebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Done" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <ImageButton
                 android:id="@+id/main_rightBtn"
                 android:layout_width="64dp"
@@ -170,6 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
+
         </LinearLayout>
 
 
