@@ -24,6 +24,10 @@ public class GetNeabyPlacesData extends AsyncTask<Object, String, String>{
     public static ArrayList<String> names = new ArrayList<String>();
     public static ArrayList<String> address = new ArrayList<String>();
     public static ArrayList<String> photos = new ArrayList<String>();
+
+    public static ArrayList<String> choseName = new ArrayList<String>();
+    public static ArrayList<String> choseAddress = new ArrayList<String>();
+    public static ArrayList<String> chosePhoto = new ArrayList<String>();
     @Override
     protected String doInBackground(Object... objects){
         mMap = (GoogleMap)objects[0];

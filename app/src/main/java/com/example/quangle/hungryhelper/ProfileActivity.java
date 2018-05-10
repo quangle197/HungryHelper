@@ -1,5 +1,6 @@
 package com.example.quangle.hungryhelper;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -7,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,15 +30,15 @@ public class ProfileActivity  extends AppCompatActivity {
         LinearLayout resImg = findViewById(R.id.profile_restaurantLayout);
 
         title = findViewById(R.id.profile_restaurantName);
-        int index = MainActivity.i;
+        int index = MainActivity.s;
         if(index == 0) {
             title.setText(GetNeabyPlacesData.names.get(0));
             new ProfileActivity.DownloadImageTask((LinearLayout) findViewById(R.id.profile_restaurantLayout)).execute(photoUrl(GetNeabyPlacesData.photos.get(0)));
         }
         else
         {
-            title.setText(GetNeabyPlacesData.names.get(index-1));
-            new ProfileActivity.DownloadImageTask((LinearLayout) findViewById(R.id.profile_restaurantLayout)).execute(photoUrl(GetNeabyPlacesData.photos.get(index-1)));
+            title.setText(GetNeabyPlacesData.names.get(index));
+            new ProfileActivity.DownloadImageTask((LinearLayout) findViewById(R.id.profile_restaurantLayout)).execute(photoUrl(GetNeabyPlacesData.photos.get(index)));
         }
     }
 
@@ -76,6 +78,10 @@ public class ProfileActivity  extends AppCompatActivity {
         }
     }
 
+    public void writeReview(View v)
+    {
+        startActivity(new Intent(this, ReviewActivity.class));
+    }
 
 
 }

@@ -34,22 +34,26 @@ import com.google.android.gms.maps.GoogleMap;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Stack;
 
 import static com.example.quangle.hungryhelper.Restaurant.generateRestaurant;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ArrayList<Restaurant> queue = new ArrayList<>();
+    //private ArrayList<Restaurant> queue = new ArrayList<>();
     public static ArrayList<Restaurant> listOfRestaurants = new ArrayList<>();
 
-    private ArrayList<String> choseName = new ArrayList<>();
+    /*private ArrayList<String> choseName = new ArrayList<>();
     private ArrayList<String> choseAddress = new ArrayList<>();
-    private ArrayList<String> chosePhoto = new ArrayList<>();
+    private ArrayList<String> chosePhoto = new ArrayList<>();*/
 
+    private ArrayList<String> choseName ;
+    private ArrayList<String> choseAddress ;
+    private ArrayList<String> chosePhoto ;
     public static TextView main;
     public static int i =0;
-
+    public static int s =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +70,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);;
         main = findViewById(R.id.main_restaurantDescriptionTxt);
+        choseName = new ArrayList<String>();
+        choseAddress = new ArrayList<String>();
+        chosePhoto = new ArrayList<String>();
         changeName();
 
-        int size = GetNeabyPlacesData.names.size();
-        int j = 0;
-        while(j < size)
-        {
-            listOfRestaurants.add(new Restaurant(GetNeabyPlacesData.names.get(j),GetNeabyPlacesData.address.get(j),GetNeabyPlacesData.photos.get(j)));
-            j++;
+        if (i<GetNeabyPlacesData.names.size()){
+            main.setText(GetNeabyPlacesData.names.get(i));
+            new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+            i++;
         }
 
         ImageButton like =(ImageButton) findViewById(R.id.main_rightBtn);
@@ -86,11 +91,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if (i<GetNeabyPlacesData.names.size()){
                         main.setText(GetNeabyPlacesData.names.get(i));
-
                         new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
                         choseName.add(GetNeabyPlacesData.names.get(i));
                         choseAddress.add(GetNeabyPlacesData.address.get(i));
                         chosePhoto.add(GetNeabyPlacesData.photos.get(i));
+                        s=i;
                         i++;
                     }
         }});
@@ -103,8 +108,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 if (i<GetNeabyPlacesData.names.size()){
                     main.setText(GetNeabyPlacesData.names.get(i));
-
                     new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                    choseName.add(GetNeabyPlacesData.names.get(i));
+                    choseAddress.add(GetNeabyPlacesData.address.get(i));
+                    chosePhoto.add(GetNeabyPlacesData.photos.get(i));
+                    s=i;
                     i++;
                 }
 
@@ -119,7 +127,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (i<GetNeabyPlacesData.names.size()){
                     main.setText(GetNeabyPlacesData.names.get(i));
                     new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
-
+                    choseName.add(GetNeabyPlacesData.names.get(i));
+                    choseAddress.add(GetNeabyPlacesData.address.get(i));
+                    chosePhoto.add(GetNeabyPlacesData.photos.get(i));
+                    s=i;
                     i++;
                 }
             }
@@ -127,8 +138,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 if (i<GetNeabyPlacesData.names.size()){
                     main.setText(GetNeabyPlacesData.names.get(i));
-
                     new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                    choseName.add(GetNeabyPlacesData.names.get(i));
+                    choseAddress.add(GetNeabyPlacesData.address.get(i));
+                    chosePhoto.add(GetNeabyPlacesData.photos.get(i));
+                    s=i;
                     i++;
                 }
             }
@@ -146,8 +160,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 if (i<GetNeabyPlacesData.names.size()){
                     main.setText(GetNeabyPlacesData.names.get(i));
-
                     new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                    choseName.add(GetNeabyPlacesData.names.get(i));
+                    choseAddress.add(GetNeabyPlacesData.address.get(i));
+                    chosePhoto.add(GetNeabyPlacesData.photos.get(i));
+                    s=i;
                     i++;
                 }
             }
@@ -155,20 +172,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 if (i<GetNeabyPlacesData.names.size()){
                     main.setText(GetNeabyPlacesData.names.get(i));
-
                     new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(GetNeabyPlacesData.photos.get(i)));
+                    choseName.add(GetNeabyPlacesData.names.get(i));
+                    choseAddress.add(GetNeabyPlacesData.address.get(i));
+                    chosePhoto.add(GetNeabyPlacesData.photos.get(i));
+                    s=i;
                     i++;
                 }
             }
         });
         Button done = findViewById(R.id.main_donebutton);
         done.setOnClickListener(new View.OnClickListener() {
-            int x = (int)(Math.random() * choseName.size());
+
+            //int x = (int) Math.random()*choseName.size();
+            Random x = new Random();
             @Override
             public void onClick(View view) {
-
-                    main.setText(choseName.get(x));
-                    new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(chosePhoto.get(x)));
+                if(!choseName.isEmpty()) {
+                    int r = x.nextInt(choseName.size());
+                    main.setText(choseName.get(r));
+                    new DownloadImageTask((ImageView) findViewById(R.id.main_profileBtn)).execute(photoUrl(chosePhoto.get(r)));
+                    choseName.clear();
+                    chosePhoto.clear();
+                    choseAddress.clear();
+                    s = r;
+                    i = 0;
+                }
             }
         });
     }
